@@ -38,7 +38,7 @@ export default class NetUtils extends Component {
                 callback(responseData);
 
             }).catch(error => {
-            alert("请求出错")
+            alert(error)
         });
     };
 
@@ -72,7 +72,7 @@ export default class NetUtils extends Component {
                 }
             }).catch(error => {
             alert(error);
-            alert("请求出错")
+         //   alert("请求出错")
         });
     };
 
@@ -87,23 +87,30 @@ export default class NetUtils extends Component {
         fetch(url,{
             method:'POST',
             headers:{
-                'Content-Type': 'application/json;charset=UTF-8'
+                'Content-Type': 'application/json;charset=UTF-8',
+                "sid":"96323b0a-e15d-4443-87a8-c0c071abbc3b",
+                "sign":"FF945F4488F2928A5D80E77BBEBB5DE7",
             },
+            //
             body:JSON.stringify(jsonObj),//json对象转换为string
         })
-            .then((response) => {
-                if(response.ok){
-                    return response.json();
-                }
-            })
-            .then((json) => {
-                if(json.resultCode === "SUCCESS"){
-                    callback(json);
-                }else{
-                    alert("请求出错")
+            .then((response) => response.json())
+            .then((responseData) => {
+                //根据接口规范在此判断是否成功，成功后则回调
+                // if(json.resultCode === "SUCCESS"){
+                //     callback(json);
+                // }else{
+                //     //否则不正确，则进行消息提示
+                //     alert("请求出错")
+                // }
+                if(responseData){
+                    callback(responseData);
+                }else {
+                    let errorMsg = responseData['errorInfo'];
+                    alert(errorMsg.errorMsg);
                 }
             }).catch(error => {
-            alert("请求出错")
+            alert(error)
         });
     };
 
