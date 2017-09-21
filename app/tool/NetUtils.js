@@ -15,6 +15,9 @@ export default class NetUtils extends Component {
 
     }
 
+
+
+    
     /**
      * 普通的get请求
      * @param {*} url 地址
