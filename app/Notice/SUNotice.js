@@ -43,7 +43,7 @@ export default class SUNotice extends PureComponent {
            "page" : "1"
        }
         Network.postJson(url,params,(result) =>{
-            var jsonData = result["rows"];
+            var jsonData = result["response"];
             alert(jsonData)
             this.dealWithData(jsonData);
         });

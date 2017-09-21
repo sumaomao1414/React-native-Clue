@@ -17,7 +17,7 @@ export default class NetUtils extends Component {
 
 
 
-    
+
     /**
      * 普通的get请求
      * @param {*} url 地址
@@ -87,16 +87,19 @@ export default class NetUtils extends Component {
      * @param {*} callback
      */
     static postJson(url,jsonObj,callback){
+        alert(JSON.stringify(jsonObj))
+
         fetch(url,{
             method:'POST',
             headers:{
-                'Content-Type': 'application/json;charset=UTF-8',
-                "sid":"96323b0a-e15d-4443-87a8-c0c071abbc3b",
-                "sign":"FF945F4488F2928A5D80E77BBEBB5DE7",
+                'Content-Type': 'application/json',
+                'sid':'96323b0a-e15d-4443-87a8-c0c071abbc3b',
+                'sign':'FF945F4488F2928A5D80E77BBEBB5DE7',
             },
             //
             body:JSON.stringify(jsonObj),//json对象转换为string
         })
+
             .then((response) => response.json())
             .then((responseData) => {
                 //根据接口规范在此判断是否成功，成功后则回调
@@ -106,11 +109,13 @@ export default class NetUtils extends Component {
                 //     //否则不正确，则进行消息提示
                 //     alert("请求出错")
                 // }
-                if(responseData){
+                if(responseData.success === "true"){
+                    alert("请求成功")
+
                     callback(responseData);
                 }else {
-                    let errorMsg = responseData['errorInfo'];
-                    alert(errorMsg.errorMsg);
+                    alert("请求" +responseData.success + "原因：" +responseData.errorInfo["errorMsg"])
+
                 }
             }).catch(error => {
             alert(error)
