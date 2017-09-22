@@ -42,11 +42,11 @@ export default class SUNotice extends PureComponent {
            "apiVersion" : "5",
            "page" : "1"
        }
-        Network.postJson(url,params,(result) =>{
-            var jsonData = result["response"];
-            alert(jsonData)
-            this.dealWithData(jsonData);
-        });
+        // Network.postJson(url,params,(result) =>{
+        //     var jsonData = result["response"];
+        //     alert(jsonData)
+        //     this.dealWithData(jsonData);
+        // });
 
         // 创造模拟数据
         for (let i = 0; i < 10; i ++) {
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     imageStyl:{
         justifyContent: 'center',
         alignItems: 'center',
-        height:150,
+        height:160,
         width:width-16,
         backgroundColor:'red',
        // marginTop:8,

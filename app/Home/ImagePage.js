@@ -16,7 +16,7 @@ var ScrollImage = React.createClass({
     getDefaultProps(){
         return{
             scrollDuration: 2000,
-            imageHeight: 180,
+            imageHeight: 145,
             imageDs: []
         }
     },
@@ -41,12 +41,15 @@ var ScrollImage = React.createClass({
                     onScrollBeginDrag={this.onScrollBeginDrag}
                     onScrollEndDrag={this.onScrollEndDrag}>
                     {this.renderAllImage()}
+
                 </ScrollView>
 
-                <Text style={styles.tipStyle}> {this.state.title}</Text>
+                {/*<Text style={styles.tipStyle}> {this.state.title}</Text>*/}
                 <View style={styles.pageViewStyle}>
                     <View style={{flexDirection:"row"}}>{this.renderPageCircle()}</View>
                 </View>
+                {/*<Text style={styles}> {"asfnaf;ssd\n\n\ngsdgls"}</Text>*/}
+
             </View>
         );
     },
@@ -65,9 +68,9 @@ var ScrollImage = React.createClass({
         var style;
         var imgsArr = this.props.imageDs;
         for(var i=0; i<imgsArr.length; i++){
-            style = (i==this.state.currentPageIndex) ? {color:'orange'} : {color:'white'};
+            style = (i==this.state.currentPageIndex) ? {color:'#cf000d'} : {color:'white'};
             indicatorArr.push(
-                <Text key={i} style={[{fontSize:18},style]}>•</Text>
+                <Text key={i} style={[{fontSize:18},style]}> • </Text>
             );
         }
         return indicatorArr;
@@ -112,12 +115,12 @@ const styles = StyleSheet.create({
     pageViewStyle:{
         width:width,
         height:20,
-        backgroundColor:'rgba(0,0,0,0.3)',
+        backgroundColor:'rgba(0,0,0,0.0)',
         position:'absolute',
         bottom:0,
         flexDirection:'row',
-        justifyContent:'flex-end',
-        alignItems:'flex-end'
+        justifyContent:'center',
+        //alignItems:'flex-end'
     }
 });
 
