@@ -7,10 +7,14 @@ import {
     FlatList,
     ListView,
     Image,
+    RefreshControl,
+    ScrollView,
+    PixelRatio,
+    Alert,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
-
+import ImageButton from '../Home/ImageButton';
 
 //const {width,height} = Dimensions.get('window');
 var Dimensions = require('Dimensions');
@@ -18,6 +22,15 @@ var ScreenW = Dimensions.get('window').width;
 import ScrollImage from '../Home/ImagePage';
 import Detail from '../Home/HomeDetail';
 import Network from '../tool/NetUtils';
+import px2dp from '../tool/px2dp';
+
+const imgBtnImages = [
+    require('../../resource/TabbarImage/home.png'),
+    require('../../resource/TabbarImage/home.png'),
+    require('../../resource/TabbarImage/home.png'),
+    require('../../resource/TabbarImage/home.png'),
+];
+
 
 //export default class SUHome extends Component {
 var Home = React.createClass({
@@ -32,7 +45,8 @@ var Home = React.createClass({
             headerDs: [],
             listDs: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2
-            })
+            }),
+            btnName: ['拆违治水','便民服务','平安宣传','更多']
         }
     },
 
@@ -75,7 +89,26 @@ var Home = React.createClass({
     renderHeader(){
         if (this.state.headerDs.length == 0) return;
         return(
-            <ScrollImage imageDs = {this.state.headerDs}/>
+            <View>
+                <ScrollImage imageDs = {this.state.headerDs}/>
+                <View style={styles.imageBtnLine}>
+                    {this.state.btnName.map((item, index) => {
+                        return(
+                            <ImageButton
+                                key={index}
+                                image={imgBtnImages[index]}
+                                imgSize={px2dp(35)}
+                                text={item}
+                                color="#000"
+                                btnStyle={styles.imgBtn}
+                            //    onPress={this._imageButtonCallback.bind(this, index)}
+                            />
+                        )})
+                    }
+                </View>
+                <View style = {{height : 10,backgroundColor:'#f5f5f5'}}/>
+
+            </View>
         );
     },
 
@@ -170,7 +203,18 @@ const styles = StyleSheet.create({
         padding:2,
         backgroundColor:'#EDEDED',
         color:'gray'
-    }
+    },
+    imageBtnLine:{
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        borderBottomWidth: 1/PixelRatio.get(),
+        borderBottomColor: '#c4c4c4'
+    },
+    imgBtn: {
+        height: px2dp(100),
+        width: Dimensions.get('window').width/4,
+    },
 });
 
 module.exports = Home;
