@@ -22,7 +22,7 @@ var ScreenW = Dimensions.get('window').width;
 import ScrollImage from '../Home/ImagePage';
 import Detail from '../Home/HomeDetail';
 import Network from '../tool/NetUtils';
-import px2dp from '../tool/px2dp';
+import px2dp from '../tool/Px2dp';
 
 const imgBtnImages = [
     require('../../resource/TabbarImage/home.png'),
@@ -90,7 +90,19 @@ var Home = React.createClass({
         if (this.state.headerDs.length == 0) return;
         return(
             <View>
-                <ScrollImage imageDs = {this.state.headerDs}/>
+                {/*<ScrollImage imageDs = {this.state.headerDs}/>*/}
+                <Swiper
+                    height={px2dp(130)}
+                    autoplay={true}
+                    bounces={true}>
+                    {/* 需要重新封装*/}
+                    <View style={styles.slide}>
+                        <Image style={styles.image} source={{url: this.state.headerDs[0].imgsrc}} resizeMode="stretch"/>
+                    </View>
+                    <View style={styles.slide}>
+                        <Image style={styles.image} source={{url: this.state.headerDs[1].imgsrc}} resizeMode="stretch"/>
+                    </View>
+                </Swiper>
                 <View style={styles.imageBtnLine}>
                     {this.state.btnName.map((item, index) => {
                         return(
@@ -101,7 +113,7 @@ var Home = React.createClass({
                                 text={item}
                                 color="#000"
                                 btnStyle={styles.imgBtn}
-                            //    onPress={this._imageButtonCallback.bind(this, index)}
+                               onPress={this._imageButtonCallback.bind(this, index)}
                             />
                         )})
                     }
@@ -131,6 +143,10 @@ var Home = React.createClass({
         //             this.dealWithData(jsonData)
         //         }
         //     })
+    },
+
+    _imageButtonCallback(position){
+        alert(position);
     },
 
     dealWithData(jsonData){
@@ -214,6 +230,13 @@ const styles = StyleSheet.create({
     imgBtn: {
         height: px2dp(100),
         width: Dimensions.get('window').width/4,
+    },
+        slide: {
+        backgroundColor: 'transparent'
+    },
+    image: {
+        height: px2dp(145),
+        width: Dimensions.get('window').width
     },
 });
 
