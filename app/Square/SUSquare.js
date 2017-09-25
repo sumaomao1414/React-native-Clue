@@ -9,6 +9,9 @@ import {
     FlatList,
 } from 'react-native';
 
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ScrollableTabBar from './CustomTabbar';
+
 const {width,height} = Dimensions.get('window');
 
 export default class SUSquare extends Component {
@@ -16,7 +19,24 @@ export default class SUSquare extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <ScrollableTabView
+                    renderTabBar={() => <ScrollableTabBar />}
+                    tabBarActiveTextColor = '#cf000d'
+                >
+                    <Text tabLabel='拆违治水1'/>
+                    <Text tabLabel='拆违治水2'/>
+                    <Text tabLabel='拆违治水3'/>
+                    <Text tabLabel='拆违治水4'/>
+                    <Text tabLabel='拆违治水5'/>
+                    <Text tabLabel='拆违治水6'/>
+                    <Text tabLabel='拆违治水7'/>
+                    <Text tabLabel='拆违治水8'/>
+                    <Text tabLabel='拆违治水9'/>
+                    <Text tabLabel='拆违治水10'/>
+                    <Text tabLabel='拆违治水11'/>
 
+
+                </ScrollableTabView>
             </View>
         );
     }
@@ -27,7 +47,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
+        paddingTop:64,
     },
     welcome: {
         fontSize: 20,

@@ -25,10 +25,10 @@ import Network from '../tool/NetUtils';
 import px2dp from '../tool/Px2dp';
 
 const imgBtnImages = [
-    require('../../resource/TabbarImage/home.png'),
-    require('../../resource/TabbarImage/home.png'),
-    require('../../resource/TabbarImage/home.png'),
-    require('../../resource/TabbarImage/home.png'),
+    require('../../resource/Home/IllegalFlood.png'),
+    require('../../resource/Home/convenienceService.png'),
+    require('../../resource/Home/advertise.png'),
+    require('../../resource/Home/Solution.png'),
 ];
 
 
@@ -109,7 +109,7 @@ var Home = React.createClass({
                             <ImageButton
                                 key={index}
                                 image={imgBtnImages[index]}
-                                imgSize={px2dp(35)}
+                                imgSize={px2dp(46)}
                                 text={item}
                                 color="#000"
                                 btnStyle={styles.imgBtn}
