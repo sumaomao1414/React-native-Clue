@@ -3,11 +3,20 @@ import {
     StyleSheet,
     Text,
     View,
-    TabBarIOS,
-    NavigatorIOS,
+    Button,
+    Image,
     Dimensions,
+    PixelRatio,
+    StatusBar,
     FlatList,
+    ScrollView,
+    TouchableHighlight,
+    TouchableOpacity,
+    ToastAndroid,
+    ART,
+    TextInput,
 } from 'react-native';
+
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ScrollableTabBar from './ScrollTabbar';
@@ -17,6 +26,7 @@ import theme from '../tool/Theme';
 import Network from '../tool/NetUtils';
 
 const {width,height} = Dimensions.get('window');
+
 
 export default class SUSquare extends Component {
 
