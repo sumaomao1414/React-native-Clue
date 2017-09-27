@@ -64,7 +64,7 @@ export default class Clue extends Component {
     render() {
         return (
            <View style={styles.container}>
-               <TabBarIOS style={{height:49,width:width,backgroundColor:'white'}}>
+               <TabBarIOS style={{height:49,width:width,backgroundColor:'white'}} >
                    {this.renderTabberItem("首页",Home,'home',require('../../resource/TabbarImage/home.png'),require('../../resource/TabbarImage/home_click.png'))}
                    {this.renderTabberItem("广场",Square,'square',require('../../resource/TabbarImage/square.png'),require('../../resource/TabbarImage/square_click.png'))}
                    {this.renderTabberItem("",Broke,'broke',require('../../resource/TabbarImage/publish.png'),require('../../resource/TabbarImage/publish.png'))}

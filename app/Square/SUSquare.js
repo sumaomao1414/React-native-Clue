@@ -23,6 +23,7 @@ import ScrollableTabBar from './ScrollTabbar';
 import HomeTab from '../Home/HomeTab';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import theme from '../tool/Theme';
+import ImageShow from '../Square/ImageShowView';
 import Network from '../tool/NetUtils';
 
 const {width,height} = Dimensions.get('window');
@@ -56,7 +57,7 @@ export default class SUSquare extends Component {
 
                     {this.state.tabNames.map((item, i) => {
                         return (
-                            <HomeTab tabLabel={item} key={i} tabTag={item}/>
+                            <HomeTab tabLabel={item} key={i} tabTag={item} showBigImage={(image,index)=>{this.showBigImage(image,index)}}/>
                         );
                     })
                     }
@@ -65,6 +66,15 @@ export default class SUSquare extends Component {
             </View>
         );
 
+    }
+
+    showBigImage(image,index){
+
+        this.props.navigator.push({
+            component: ImageShow,
+            title:'图片预览',
+            passProps:{'images': image, 'index': index}
+        })
     }
 
     componentDidMount(){

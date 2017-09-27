@@ -27,6 +27,7 @@ import Base64 from '../tool/Base64';
 import Utils from '../tool/Utils';
 import CountEmitter from '../tool/CountEmitter';
 import px2dp from '../tool/Px2dp';
+import ImageShow from '../Square/ImageShowView';
 
 const {width,height} = Dimensions.get('window');
 const AVATAR_WIDTH = 80;
@@ -46,7 +47,7 @@ export default class HomeTab extends Component{
             isUpdate: false,
             isLoadMore: false,
             hasMoreData: true,
-            showReplyInput: false
+            showReplyInput: false,
         };
         // 分页需要使用的两个参数offset:偏移量, pagesize:一页的大小,pagesize=-1代表获取所有数据
         this.offset = 0;
@@ -154,7 +155,7 @@ export default class HomeTab extends Component{
         if (end === 1){
             let img = {uri: arr[0]};
             images.push(
-                <TouchableOpacity key={"row-image-0"} activeOpacity={0.6} onPress={()=>this.props.navigation.navigate('ImageShow', {'images': arr, 'index': i})}>
+                <TouchableOpacity key={"row-image-0"} activeOpacity={0.6} onPress={()=>{this.props.showBigImage(arr,0)}}>
                     <Image source={img} style={{width:200 ,height:120,marginRight: 3,}} />
                 </TouchableOpacity>
             );
@@ -162,7 +163,7 @@ export default class HomeTab extends Component{
             for (let i = start; i < end; i++) {
                 let img = {uri: arr[i]};
                 images.push(
-                    <TouchableOpacity key={"row-image-" + i} activeOpacity={0.6} onPress={()=>this.props.navigation.navigate('ImageShow', {'images': arr, 'index': i})}>
+                    <TouchableOpacity key={"row-image-" + i} activeOpacity={0.6} onPress={()=>{this.props.showBigImage(arr,i)}}>
                         <Image source={img} style={listItemStyle.imageCell} />
                     </TouchableOpacity>
                 );
@@ -175,6 +176,7 @@ export default class HomeTab extends Component{
             </View>
         );
     }
+
     renderImages(pictures) {
         if (pictures == null || pictures == '') {
             return null;
