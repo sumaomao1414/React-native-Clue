@@ -24,7 +24,7 @@ export default class Clue extends Component {
     constructor(props){
         super(props);
         this.state = {
-            selectedTabItem:'home'    // 首选页面
+            selectedTabItem:'square'    // 首选页面
         }
     }
 

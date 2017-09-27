@@ -27,7 +27,7 @@ export default class NetUtils extends Component {
     static get(url,params,callback){
         fetch(url,{
             method:'GET',
-            body:params
+            body:params,
         })
             .then((response) => response.json())
             .then((responseData) => {
@@ -39,6 +39,33 @@ export default class NetUtils extends Component {
                 //     alert("请求出错")
                 // }
                 callback(responseData);
+
+            }).catch(error => {
+            alert(error)
+        });
+    };
+
+    static getSign(url,params,sid,sign,callback){
+        fetch(url,{
+            method:'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'sid':sid,
+                'sign':sign,
+            },
+            body:params,
+        })
+            .then((response) => response.json())
+            .then((responseData) => {
+                //根据接口规范在此判断是否成功，成功后则回调
+                if(responseData.success === "true"){
+                    alert("请求成功")
+
+                    callback(responseData);
+                }else {
+                    alert("请求" +responseData.success + "原因：" +responseData.errorInfo["errorMsg"])
+
+                }
 
             }).catch(error => {
             alert(error)
@@ -93,8 +120,8 @@ export default class NetUtils extends Component {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
-                'sid':'96323b0a-e15d-4443-87a8-c0c071abbc3b',
-                'sign':'FF945F4488F2928A5D80E77BBEBB5DE7',
+                sid:'96323b0a-e15d-4443-87a8-c0c071abbc3b',
+                sign:'FF945F4488F2928A5D80E77BBEBB5DE7',
             },
             //
             body:JSON.stringify(jsonObj),//json对象转换为string

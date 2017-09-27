@@ -15,7 +15,7 @@ export default {
         height: (Platform.OS === 'android') ? px2dp(49) : px2dp(45),
         backgroundColor: 'rgb(22,131,251)',
         fontSize: px2dp(16),
-        fontColor: 'white'
+        fontColor: 'white',
     },
     text: {
         color: globalTextColor,
@@ -24,7 +24,7 @@ export default {
     scrollView: {
         fontSize: px2dp(15),
         underlineStyle: {
-            backgroundColor: 'white'
+            backgroundColor: '#cf000d'
         }
     }
 };

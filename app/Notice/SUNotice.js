@@ -34,19 +34,19 @@ export default class SUNotice extends PureComponent {
     componentDidMount() {
         const url = "https://api.daliandong.cn/api/clue/operationNoticeDubboService/findOperationNoticeForPageForMobile";
        const params = {
-           "appKey" : "H2bLGFrv_6XJA5zW",
-           "departmentNo" : 330106,
-           "rows" : "10",
-           "tqmobile" : "true",
-           "mobileType" : "ios",
-           "apiVersion" : "5",
-           "page" : "1"
+           appKey : 'H2bLGFrv_6XJA5zW',
+           departmentNo : 330106,
+           rows : 10,
+           tqmobile : true,
+           mobileType : 'ios',
+           apiVersion : 5,
+           page : 1,
        }
-        // Network.postJson(url,params,(result) =>{
-        //     var jsonData = result["response"];
-        //     alert(jsonData)
-        //     this.dealWithData(jsonData);
-        // });
+        Network.postJson(url,params,(result) =>{
+            var jsonData = result["response"];
+            alert(jsonData)
+            this.dealWithData(jsonData);
+        });
 
         // 创造模拟数据
         for (let i = 0; i < 10; i ++) {
@@ -159,12 +159,12 @@ class FlatListItem extends React.PureComponent {
             >
                 <View style={styles.container}>
                     <Image style={styles.imageStyl}/>
-                    <Text style={styles.text}>
-                        <Text numberOfLines={2}>
+                    <Text style={styles.text} numberOfLines={2}>
+                        <Text>
                             {this.props.title}
                         </Text>
                     </Text>
-                    <Text style={styles.text}>
+                    <Text style={styles.rightText} >
                         {"aafjkaslfja;sfj"}
                     </Text>
 
@@ -178,6 +178,7 @@ class FlatListItem extends React.PureComponent {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection:'column',
         justifyContent: 'center',
        // alignItems: 'center',
         backgroundColor: 'white',
@@ -208,9 +209,21 @@ const styles = StyleSheet.create({
     text:{
         fontSize:14,
         //alignItems:'left',
-        // alignItems:'flex-end',
+         alignItems:'flex-end',
         marginBottom:8,
+        paddingRight:10,
         backgroundColor:'white',
         borderBottomColor:'white',
+    },
+    rightText:{
+        fontSize:14,
+       // alignItems:'right',
+        justifyContent:'center',
+        alignItems:'flex-end',
+        marginBottom:8,
+        marginRight:10,
+        backgroundColor:'white',
+        borderBottomColor:'white',
+        width:100,
     }
 });
