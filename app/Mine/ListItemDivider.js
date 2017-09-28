@@ -13,7 +13,7 @@ export default class ListItemDivider extends Component {
         var height = 1 / PixelRatio.get();
         return (
             <View style={{width: width, height: height, backgroundColor: '#FFFFFF'}}>
-                <View style={{width: width - 20, height: height, marginLeft: 10, marginRight: 10, backgroundColor: '#D3D3D3'}}/>
+                <View style={{width: width - 60, height: height, marginLeft: 50, marginRight: 10, backgroundColor: '#D3D3D3'}}/>
             </View>
         );
     }

@@ -52,7 +52,7 @@ export default class HomeTab extends Component{
         // 分页需要使用的两个参数offset:偏移量, pagesize:一页的大小,pagesize=-1代表获取所有数据
         this.offset = 0;
         this.pagesize = 5;
-        this.avatar;
+        this.avatar = 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2637960348,2817904703&fm=27&gp=0.jpg'
     }
 
     componentWillMount() {
