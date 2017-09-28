@@ -6,15 +6,41 @@ import {
     Image,
     Dimensions,
     TouchableOpacity,
-    ViewPagerAndroid
+    ViewPagerAndroid,
+    Text
 } from 'react-native';
 
 var { width, height } = Dimensions.get('window');
 
 export default class ImageShowScreen extends Component {
+
+    static navigationOptions = ({navigation,screenProps}) => ({
+        // 这里面的属性和App.js的navigationOptions是一样的。
+        headerTitle:navigation.state.params?navigation.state.params.headerTitle:'ShowImage',
+        headerStyle:{
+            tintColor:'#cf000d'
+        }
+        // headerRight:(
+        //     <Text style={{color:'red',marginRight:20}} onPress={()=>navigation.state.params?navigation.state.params.navigatePress():null}>我的</Text>
+        // ),
+    });
+
+    // componentDidMount(){
+    //     // 通过在componentDidMount里面设置setParams将title的值动态修改
+    //     this.props.navigation.setParams({
+    //         headerTitle:'ShowImage',
+    //         navigatePress:this.navigatePress,
+    //         backgroundColor:'#cf000d',
+    //     });
+    // }
+    //
+    // navigatePress = () => {
+    //     alert('点击headerRight');
+    // }
+
     render() {
-        let data = this.props.images;
-        let index = this.props.index;
+        let data = this.props.navigation.state.params.images;
+        let index = this.props.navigation.state.params.index;
 
         let pages = [];
         if (data != null && data.length > 0) {
@@ -28,7 +54,7 @@ export default class ImageShowScreen extends Component {
         }
         return (
             <View style={styles.container}>
-                <ViewPagerAndroid initialPage={index} style={styles.viewPager}>
+                <ViewPagerAndroid initialPage={this.props.navigation.state.params.index} style={styles.viewPager}>
                     {pages}
                 </ViewPagerAndroid>
             </View>

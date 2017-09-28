@@ -26,7 +26,10 @@ export default class SUNotice extends PureComponent {
         this.state = {
             // 存储数据的状态
             sourceData : []
-            ,selected: (new Map(): Map<String, boolean>)
+            ,selected: (new Map(): Map<String, boolean>),
+            refreshing: false
+            // 添加存储用户输入索引的状态
+            ,indexText: ''
         }
     }
 
@@ -42,11 +45,11 @@ export default class SUNotice extends PureComponent {
            apiVersion : 5,
            page : 1,
        }
-        Network.postJson(url,params,(result) =>{
-            var jsonData = result["response"];
-            alert(jsonData)
-            this.dealWithData(jsonData);
-        });
+        // Network.postJson(url,params,(result) =>{
+        //     var jsonData = result["response"];
+        //     alert(jsonData)
+        //     this.dealWithData(jsonData);
+        // });
 
         // 创造模拟数据
         for (let i = 0; i < 10; i ++) {
@@ -103,6 +106,36 @@ export default class SUNotice extends PureComponent {
      * @param id
      * @private
      */
+        // 下拉刷新
+    _renderRefresh = () => {
+        this.setState({refreshing: true})//开始刷新
+        //这里模拟请求网络，拿到数据，3s后停止刷新
+        setTimeout(() => {
+           // CustomToastAndroid.show('没有可刷新的内容！', CustomToastAndroid.SHORT);
+            this.setState({refreshing: false});
+        }, 3000);
+    };
+
+    // 上拉加载更多
+    _onEndReached = () => {
+        let newData = [];
+
+        for (let i = 10; i < 30; i ++) {
+            let obj = {
+                id: i
+                ,title: i + '生了只小柯基'
+            };
+
+            newData.push(obj);
+        }
+
+        this.dataContainer = this.dataContainer.concat(newData);
+        this.setState({
+            sourceData: this.dataContainer
+        });
+    };
+
+
     _onPressItem = (id: string) => {
         this.setState((state) => {
             const selected = new Map(state.selected);
@@ -138,6 +171,13 @@ export default class SUNotice extends PureComponent {
                 renderItem={ this._renderItem }
                 ItemSeparatorComponent={({highlighted}) => (<View style={{ height:1, backgroundColor:'#000' }}></View>)}
                 ListEmptyComponent={ this._renderEmptyView }
+
+                refreshing={ this.state.refreshing }
+                // 决定当距离内容最底部还有多远时触发onEndReached回调；数值范围0~1，例如：0.5表示可见布局的最底端距离content最底端等于可见布局一半高度的时候调用该回调
+                onEndReachedThreshold={0.1}
+                onEndReached={ this._onEndReached }
+
+                onRefresh={ this._renderRefresh }
             />
         );
     }

@@ -79,11 +79,13 @@ var Home = React.createClass({
     pushToDetail(row){
 
 
-        this.props.navigator.push({
-            component: Detail,
-            title: row.title,
-            passProps:{row}
-        })
+        // this.props.navigator.push({
+        //     component: Detail,
+        //     title: row.title,
+        //     passProps:{row}
+        // })
+
+        this.props.navigation.navigate('HomeDetail',{title:row.title,'docid':row.docid,headerTitle:'详情'})
     },
 
     renderHeader(){

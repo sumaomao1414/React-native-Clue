@@ -70,11 +70,13 @@ export default class SUSquare extends Component {
 
     showBigImage(image,index){
 
-        this.props.navigator.push({
-            component: ImageShow,
-            title:'图片预览',
-            passProps:{'images': image, 'index': index}
-        })
+        // this.props.navigator.push({
+        //     component: ImageShow,
+        //     title:'图片预览',
+        //     passProps:{'images': image, 'index': index}
+        // })
+
+        this.props.navigation.navigate('ShowImage', {'images': image, 'index': index,headerTitle:'查看图片'})
     }
 
     componentDidMount(){
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        paddingTop:64,
+        paddingTop:0,
     },
     welcome: {
         fontSize: 20,

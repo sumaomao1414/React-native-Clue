@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 
 var Detail = React.createClass({
+
+
     getInitialState(){
         return{
             detailData: ''
@@ -28,14 +30,19 @@ var Detail = React.createClass({
     },
 
     componentDidMount(){
+
+        this.props.navigation.setParams({
+            headerTitle:'Detail1',
+           // navigatePress:this.navigatePress,
+        });
         //加载  ？？？
-        var url_api = 'http://c.m.163.com/nc/article/'+this.props.row.docid+'/full.html';
+        var url_api = 'http://c.m.163.com/nc/article/'+this.props.navigation.state.params.docid+'/full.html';
         console.log(url_api);
         fetch(url_api)
             .then((response) => response.json())
             .then((responseData)=>{
                 console.log(responseData);
-                var allData = responseData[this.props.row.docid];
+                var allData = responseData[this.props.navigation.state.params.docid];
                 var bodyHtml = allData['body'];
                 if(allData['img'].length > 0){
                     for(var i=0; i<allData['img'].length; i++){

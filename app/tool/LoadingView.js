@@ -21,6 +21,7 @@ export default class LoadingView extends Component {
                     <ActivityIndicator size='large' color='#FFFFFF' />
                     <Text style={styles.loadingText}>{loadingText}</Text>
                 </View>
+
             </Modal>
         );
     }

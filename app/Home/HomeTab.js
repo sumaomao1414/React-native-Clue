@@ -16,8 +16,6 @@ import {
     TouchableOpacity,
     ART,
     TextInput,
-    KeyboardAvoidingView,
-    Keyboard
 } from 'react-native';
 
 import theme from '../tool/Theme'
@@ -27,7 +25,6 @@ import Base64 from '../tool/Base64';
 import Utils from '../tool/Utils';
 import CountEmitter from '../tool/CountEmitter';
 import px2dp from '../tool/Px2dp';
-import ImageShow from '../Square/ImageShowView';
 
 const {width,height} = Dimensions.get('window');
 const AVATAR_WIDTH = 80;
@@ -78,7 +75,7 @@ export default class HomeTab extends Component{
             this.showLoading();
         }
         let url = 'http://rnwechat.applinzi.com/moments?offset=' + this.offset + '&pagesize=' + this.pagesize;
-
+      //  alert(url)
         fetch(url).then((res)=>res.json())
             .then((json)=>{
                 if (useLoading) {
@@ -88,7 +85,6 @@ export default class HomeTab extends Component{
                     if (json.code == 1) {
                         let data = json.msg; // 数组
                         if (data.length == 0) {
-                           // alert('没有更多数据了')
                             this.setState({hasMoreData: false});
                             return ;
                         }
@@ -112,7 +108,6 @@ export default class HomeTab extends Component{
             if (useLoading) {
                 this.hideLoading();
             }
-
             alert(e.toString())
         })
     }
@@ -123,6 +118,29 @@ export default class HomeTab extends Component{
         this.setState({showProgress: false});
     }
 
+    _keyExtractor = (item, index) => index;
+
+
+    // 下拉刷新
+    _renderRefresh = () => {
+        this.setState({isLoadMore: false})//开始刷新
+        //这里模拟请求网络，拿到数据，3s后停止刷新
+        setTimeout(() => {
+            this.getMoments(false);
+        }, 3000);
+    };
+
+    // 上拉加载更多
+    _onEndReached = () => {
+        if (!this.state.hasMoreData) {
+            return ;
+        }
+        this.setState({isLoadMore: true});
+        //alert('加载下一页')
+        this.offset = this.offset + 1;
+        this.getMoments(false);
+    };
+
     renderHeaderView() {
         return (
             <View style = {{height:10,backgroundColor:'#f6f7f8'}}>
@@ -130,20 +148,37 @@ export default class HomeTab extends Component{
         );
     }
 
+    ShowLoadView(){
+        setTimeout(() => {
+            this.setState({showProgress: false})
+        }, 1000);
+    }
 
     render() {
         return (
             <ScrollView
                 style={styles.container}>
-
+                {
+                    this.state.showProgress ? (
+                        <LoadingView cancel={()=>this.ShowLoadView()} />
+                    ) : (null)
+                }
                 <View>
-                        {/*<ListViewForOtherTab contents={[1,2,3,4,5,6,7,8,9,0,8,8,7,6]}/>*/}
+
                     <FlatList
                         ListHeaderComponent={()=>this.renderHeaderView()}
                         data={this.state.moments}
                         renderItem={this.renderItem}
-                        onEndReached={()=>{this.loadNextPage()}}
-                        onEndReachedThreshold={0.2}
+
+                        keyExtractor={ this._keyExtractor }
+
+                        //下拉
+                      //  onRefresh={ this._renderRefresh }
+
+                        //上啦
+                        onEndReachedThreshold={0.1}
+                        onEndReached={ this._onEndReached }
+
                     />
                 </View>
             </ScrollView>
@@ -200,15 +235,6 @@ export default class HomeTab extends Component{
                 {images}
             </View>
         );
-    }
-    loadNextPage = (info)=>{
-        if (!this.state.hasMoreData) {
-            return ;
-        }
-        this.setState({isLoadMore: true});
-        //alert('加载下一页')
-        this.offset = this.offset + this.pagesize;
-        this.getMoments(false);
     }
 
     renderItem = (item) => {
